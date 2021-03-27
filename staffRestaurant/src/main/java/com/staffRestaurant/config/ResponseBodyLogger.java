@@ -1,8 +1,5 @@
 package com.staffRestaurant.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -13,10 +10,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.staffRestaurant.utill.CommonUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @ControllerAdvice
 public class ResponseBodyLogger<T> implements ResponseBodyAdvice<T> {
-	
-	private Logger logger = LoggerFactory.getLogger(ResponseBodyLogger.class);
 
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -32,13 +30,13 @@ public class ResponseBodyLogger<T> implements ResponseBodyAdvice<T> {
 			                , ServerHttpRequest request
 			                , ServerHttpResponse response) {
 		try {
-			String ip    = request.getRemoteAddress().getAddress().getHostAddress();
-			String url   = request.getURI().getPath();
+			String ip  = request.getRemoteAddress().getAddress().getHostAddress();
+			String uri = request.getURI().getPath();
 			String responseBody = CommonUtil.convertMapToStr(body);
 			
-			logger.info(String.format("{\"IP\" : \"%s\", \"URL\" : \"%s\", \"RESPONSE\" : %s}", ip, url, responseBody));
+			log.info(String.format("{\"IP\" : \"%s\", \"URI\" : \"%s\", \"RESPONSE\" : %s}", ip, uri, responseBody));
 		} catch (Exception e) {
-			logger.error("[beforeBodyWrite] staffError : "+e.getMessage());
+			log.error("[beforeBodyWrite] staffError : "+e.getMessage());
 		}
 		return body;
 	}

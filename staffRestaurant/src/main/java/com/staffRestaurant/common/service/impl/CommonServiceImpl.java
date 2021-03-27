@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.staffRestaurant.common.mapper.CommonMapper;
 import com.staffRestaurant.common.service.CommonService;
+
 @Service
 public class CommonServiceImpl implements CommonService{
 

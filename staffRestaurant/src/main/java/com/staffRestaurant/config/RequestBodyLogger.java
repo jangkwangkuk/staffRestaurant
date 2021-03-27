@@ -1,9 +1,9 @@
 package com.staffRestaurant.config;
 
 import java.lang.reflect.Type;
+
 import javax.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -13,14 +13,14 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAd
 
 import com.staffRestaurant.utill.CommonUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @ControllerAdvice
 public class RequestBodyLogger extends RequestBodyAdviceAdapter {
 
     @Autowired
     HttpServletRequest httpServletRequest;
-	
-    private Logger logger = LoggerFactory.getLogger(RequestBodyLogger.class);
-	
 
 	@Override
 	public boolean supports(MethodParameter methodParameter, Type targetType,
@@ -36,13 +36,13 @@ public class RequestBodyLogger extends RequestBodyAdviceAdapter {
     		                   , Type targetType
     		                   , Class<? extends HttpMessageConverter<?>> converterType) {
 		try {
-			String ip = httpServletRequest.getRemoteAddr();
-			String url = httpServletRequest.getRequestURI();
+			String ip  = httpServletRequest.getRemoteAddr();
+			String uri = httpServletRequest.getRequestURI();
 			String requestBody = CommonUtil.convertMapToStr(body);
 			
-			logger.info(String.format("{\"IP\" : \"%s\", \"URL\" : \"%s\", \"RESPONSE\" : %s", ip, url, requestBody));
+			log.info(String.format("{\"IP\" : \"%s\", \"URI\" : \"%s\", \"REQUEST\" : %s", ip, uri, requestBody));
 		} catch (Exception e) {
-			logger.error("[afterBodyRead] staffError : "+e.getMessage());
+			log.error("[afterBodyRead] staffError : "+e.getMessage());
 		}
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
 	}

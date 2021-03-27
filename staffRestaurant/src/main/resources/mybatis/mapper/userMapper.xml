@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.staffRestaurant.user.mapper.UserMapper">
+
+    <insert id="insertUserInfo"  parameterType="HashMap">
+        INSERT INTO USER_INFO( ID
+                             , NAME
+                             , NICKNAME
+                             , PASSWORD
+                             , TEL
+                             , BIRTH
+                             , ADDR
+                             , REG_DT
+                             , TYP) 
+               VALUES( #{ID} 
+                     , #{NAME}
+                     , #{NICKNAME}
+                     , #{PASSWORD}
+                     , #{TEL}
+                     , #{BIRTH}
+                     , #{ADDR}
+                     , NOW()
+                     , #{TYP})
+    </insert>
+    
+    <select id="selectUserInfo" parameterType="HashMap" resultType="HashMap">
+    	SELECT ID
+    	     , NAME
+    	     , NICKNAME
+    	     , TEL
+    	     , BIRTH
+    	     , ADDR
+    	     , TYP
+    	  FROM USER_INFO
+    	 WHERE ID = #{ID}
+    	   AND PASSWORD = #{PASSWORD}
+    </select>
+</mapper>

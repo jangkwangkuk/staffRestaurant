@@ -10,8 +10,8 @@ spring:
     connection-test-query: SELECT 1 #데이터베이스 연결이 여전히 활성화되어있는지 확인하기 위해 pool에서 connection을 제공하기 전에 실행되는 쿼리입니다.
 
 mybatis:
-  type-aliases-package: com.staffRestaurant.common.mapper.CommonMapper
-  mapper-locations: classpath*:mybatis/mapper/commonMapper.xml
+  type-aliases-package: com.staffRestaurant.*.mapper.*
+  mapper-locations: classpath*:mybatis/mapper/*.xml
 
   
 logging:
