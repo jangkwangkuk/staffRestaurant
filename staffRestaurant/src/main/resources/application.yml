@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://localhost:3306/menuDB?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:log4jdbc:mariadb://localhost:3306/staffRestaurant?serverTimezone=UTC&characterEncoding=UTF-8
     username: staffAdmin
     password: 1234
     connection-timeout: 5000 #클라이언트가 pool에 connection을 요청하는데 기다리는 최대시간을 설정합니다.
